@@ -2,9 +2,6 @@
     import { page } from "$app/stores";
     import Photo from './_Photo.svelte'
 
-
-
-
     function getData(url: URL) {
         const page = url.searchParams.get('page') ?? '0';
         const id = parseInt(page) * 4;
@@ -19,17 +16,8 @@
         return newUrl.toString();
     }
 
-    function getPreviousUrl(url: URL) {
-        const page = url.searchParams.get('page') ?? '0';
-        const previousPage = parseInt(page) - 1;
-        const newUrl = new URL(url);
-        newUrl.searchParams.set('page', previousPage.toString());
-        return newUrl.toString();
-    }
-
     $: ids = getData($page.url);
     $: nextUrl = getNextUrl($page.url);
-    $: previousUrl = getPreviousUrl($page.url);
 </script>
 
 <div>
@@ -46,7 +34,6 @@
 </div>
 
 <div class='nav'>
-    <a href={previousUrl}>Previous</a>
     <a href={nextUrl}>Next</a>
 </div>
 <div>
